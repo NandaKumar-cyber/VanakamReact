@@ -1,0 +1,28 @@
+{
+  "name": "vanakamreact",
+  "version": "1.0.0",
+  "description": "This is vanakam react course",
+ 
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NandaKumar-cyber/VanakamReact.git"
+  },
+  "keywords": [],
+  "author": "nanda kumar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NandaKumar-cyber/VanakamReact/issues"
+  },
+  "homepage": "https://github.com/NandaKumar-cyber/VanakamReact#readme",
+  "devDependencies": {
+    "parcel": "^2.8.3",
+    "process": "^0.11.10"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}

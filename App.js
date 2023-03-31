@@ -4,8 +4,8 @@
     <h2 id="sibling2"></h2>
 </div>
 </div>  */}
-
-
+import React from "react";
+import ReactDOM from "react-dom/client";
 
 const parent = React.createElement('div', { id: 'parent' },
  [React.createElement('div', { id: "child1" }, 
