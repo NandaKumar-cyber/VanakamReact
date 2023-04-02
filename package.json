@@ -4,6 +4,8 @@
   "description": "This is vanakam react course",
  
   "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html",
     "test": "jest"
   },
   "repository": {
