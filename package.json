@@ -2,7 +2,6 @@
   "name": "vanakamreact",
   "version": "1.0.0",
   "description": "This is vanakam react course",
- 
   "scripts": {
     "start": "parcel index.html",
     "build": "parcel build index.html",
@@ -25,6 +24,7 @@
   },
   "dependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.15.0"
   }
 }
