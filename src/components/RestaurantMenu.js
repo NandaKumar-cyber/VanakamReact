@@ -65,10 +65,10 @@ const RestaurantMenu = () => {
       {/* <h3>{itemCards[7].card.info.name}</h3> */}
 
        <ul>
-        {itemCards.map((i)=>{   
+        {itemCards && itemCards.map((items)=>{   
          return(
-         <li key={i.card.info.id}>
-            {i.card.info.name}
+         <li key={items.card.info.id}>
+            {items.card.info.name} - {items.card.info.price/100}
           </li>)
         })}
      </ul> 
