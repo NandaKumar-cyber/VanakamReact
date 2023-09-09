@@ -1,43 +1,23 @@
-import { useEffect, useState } from "react";
-import { MENU_API } from "../utils/Constants";
 import Shimmer from "./Shimmer";
 import { useParams } from "react-router-dom";
-
+import useRestaurantMenu from "../utils/useRestaurantMenu";
 
 const RestaurantMenu = () => {
-  const [resInfo, setResInfo] = useState(null);
   const { resId } = useParams();
-  console.log(resId,"resId")
+  console.log(resId, "resId");
 
-  useEffect(() => {
-    fetchMenu();
-    console.log("useEffect is rendered");
-  }, []);
-
-  const fetchMenu = async () => {
-    try {
-      const data = await fetch(MENU_API+resId);
-      const json = await data.json();
-      setResInfo(json.data);
-      console.log(json.data);
-      console.log(resInfo?.cards[0]?.card?.card?.info?.name);
-    } catch (error) {
-      console.log("Error fetching menu", error);
-    }
-  };
+  const resInfo = useRestaurantMenu(resId);
 
   if (resInfo === null) {
     return <Shimmer />;
   }
 
   const { name, cuisines, costForTwoMessage } =
-  resInfo?.cards[0]?.card?.card?.info;
+    resInfo?.cards[0]?.card?.card?.info;
 
-
-   const { itemCards } =
-    resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[4]?.card
-      ?.card;
-   console.log(itemCards);
+  const { itemCards } =
+    resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[4]?.card?.card;
+  console.log(itemCards);
 
   // const info = resInfo?.data?.cards[0]?.card?.card?.info;
 
@@ -59,19 +39,24 @@ const RestaurantMenu = () => {
   return (
     <div className="MainMenu">
       <h1>{name}</h1>
-      <p> {cuisines.join(", ")} - {costForTwoMessage}</p>
+      <p>
+        {" "}
+        {cuisines.join(", ")} - {costForTwoMessage}
+      </p>
 
-       {/* <h3>{itemCards[0].card.info.name}</h3> */} 
+      {/* <h3>{itemCards[0].card.info.name}</h3> */}
       {/* <h3>{itemCards[7].card.info.name}</h3> */}
 
-       <ul>
-        {itemCards && itemCards.map((items)=>{   
-         return(
-         <li key={items.card.info.id}>
-            {items.card.info.name} - {items.card.info.price/100}
-          </li>)
-        })}
-     </ul> 
+      <ul>
+        {itemCards &&
+          itemCards.map((items) => {
+            return (
+              <li key={items.card.info.id}>
+                {items.card.info.name} - {items.card.info.price / 100}
+              </li>
+            );
+          })}
+      </ul>
       {/* <h1>Hello</h1> */}
     </div>
   );

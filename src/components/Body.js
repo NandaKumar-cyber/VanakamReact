@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
 import { SWIGGY_URL } from "../utils/Constants";
 import { Link } from "react-router-dom";
+import useFetchRestaurant from "../utils/useFetchRestaurants";
 
 // let resList = [
 //     {
@@ -103,33 +104,37 @@ import { Link } from "react-router-dom";
 // ]
 
 const Body = () => {
-  const [listOfRestaurants, setlistOfRestaurants] = useState([]);
+ 
+  //  const [listOfRestaurants, setlistOfRestaurants] = useState([]);
   const [searchText, setSearchText] = useState("");
-  const [filteredList, setFilteredList] = useState(listOfRestaurants);
+  // const [filteredList, setFilteredList] = useState(listOfRestaurants);
   //   console.log("Body rendered");
-  useEffect(() => {
-    console.log("Body rendered");
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   console.log("Body rendered");
+  //   fetchData();
+  // }, []);
 
-  const fetchData = async () => {
-    try {
-      const data = await fetch(SWIGGY_URL);
-      const json = await data.json();
-      console.log(json);
-      //optional Chaining
-      setlistOfRestaurants(
-        json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle
-          ?.restaurants
-      );
-      setFilteredList(
-        json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle
-          ?.restaurants
-      );
-    } catch (error) {
-      console.error("Error fetching data for card", error);
-    }
-  };
+  // const fetchData = async () => {
+  //   try {
+  //     const data = await fetch(SWIGGY_URL);
+  //     const json = await data.json();
+  //     console.log(json);
+  //     //optional Chaining
+  //     setlistOfRestaurants(
+  //       json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle
+  //         ?.restaurants
+  //     );
+  //     setFilteredList(
+  //       json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle
+  //         ?.restaurants
+  //     );
+  //   } catch (error) {
+  //     console.error("Error fetching data for card", error);
+  //   }
+  // };
+
+  const { listOfRestaurants, filteredList, setFilteredList } =
+    useFetchRestaurant(SWIGGY_URL);
 
   const topRated = () => {
     const highRated = listOfRestaurants.filter(
@@ -137,6 +142,14 @@ const Body = () => {
     );
     console.log(highRated);
     setFilteredList(highRated);
+  };
+
+  const fastDelivery = () => {
+    const instantDelivery = filteredList.filter(
+      (item) => item.info.sla.deliveryTime < 30
+    );
+    console.log(instantDelivery);
+    setFilteredList(instantDelivery);
   };
 
   const searchBtnClick = () => {
@@ -166,7 +179,12 @@ const Body = () => {
           />
           <button onClick={searchBtnClick}>Search</button>
         </div>
-        <button onClick={topRated}>Top Rated Restaurant</button>
+        <button className="btn" onClick={topRated}>
+          Top Rated Restaurant
+        </button>
+        <button className="btn" onClick={fastDelivery}>
+          Fastest Delivery
+        </button>
       </div>
       <div className="res-container">
         {/* {<RestaurantCard resData={resList[0]} />}
