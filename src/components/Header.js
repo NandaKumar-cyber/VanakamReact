@@ -57,7 +57,7 @@ const Header = () => {
             />
             <button onClick={searchBtnClickGlobal}>Search</button>
           </div>
-          <li>{onlineStatus ? "Online" : "Offline"}</li>
+
           <li>
             <Link to="/">Home</Link>
           </li>
@@ -67,6 +67,8 @@ const Header = () => {
           <li>
             <Link to="/contact">Contact Us</Link>
           </li>
+          <li>{onlineStatus ? "Online" : "Offline"}</li>
+
           <li>Cart</li>
           <button onClick={changetoLogout}>{btn}</button>
         </ul>
