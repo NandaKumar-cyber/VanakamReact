@@ -5,6 +5,7 @@ import Shimmer from "./Shimmer";
 import { SWIGGY_URL } from "../utils/Constants";
 import { Link } from "react-router-dom";
 import useFetchRestaurant from "../utils/useFetchRestaurants";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 // let resList = [
 //     {
@@ -176,6 +177,11 @@ const Body = () => {
   const updateSearchTextGlobal = (e) => {
     setSearchTextGlobal(e.target.value);
   };
+
+  const onlineStatus = useOnlineStatus();
+
+  if (onlineStatus === false)
+    return <h1>You are Offline,Check your Internet Connectivity</h1>;
 
   return listOfRestaurants?.length === 0 ? (
     <Shimmer />

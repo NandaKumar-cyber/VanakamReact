@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { SWIGGY_URL } from "../utils/Constants";
 import useFetchRestaurant from "../utils/useFetchRestaurants";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Header = () => {
   const [btn, setBtn] = useState("login");
@@ -14,6 +15,8 @@ const Header = () => {
   useEffect(() => {
     console.log("useEfeect called");
   }, []);
+
+  const onlineStatus = useOnlineStatus();
 
   const { listOfRestaurants, setFilteredList } = useFetchRestaurant(SWIGGY_URL);
 
@@ -41,20 +44,20 @@ const Header = () => {
       <div className="logo-container">
         <img className="logo" src={LOGO_URL} />
       </div>
-      
+
       <div className="nav-items">
-          <ul>
-        <div className="search">
-          <input
-            placeholder="Global Search"
-            className="search-box"
-            type="text"
-            value={searchTextGlobal}
-            onChange={updateSearchTextGlobal}
-          />
-          <button onClick={searchBtnClickGlobal}>Search</button>
-        </div>
-      
+        <ul>
+          <div className="search">
+            <input
+              placeholder="Global Search"
+              className="search-box"
+              type="text"
+              value={searchTextGlobal}
+              onChange={updateSearchTextGlobal}
+            />
+            <button onClick={searchBtnClickGlobal}>Search</button>
+          </div>
+          <li>{onlineStatus ? "Online" : "Offline"}</li>
           <li>
             <Link to="/">Home</Link>
           </li>
