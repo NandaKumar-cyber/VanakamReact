@@ -104,9 +104,9 @@ import useFetchRestaurant from "../utils/useFetchRestaurants";
 // ]
 
 const Body = () => {
- 
-  //  const [listOfRestaurants, setlistOfRestaurants] = useState([]);
+  // const [listOfRestaurants, setlistOfRestaurants] = useState([]);
   const [searchText, setSearchText] = useState("");
+  const [searchTextGlobal, setSearchTextGlobal] = useState("");
   // const [filteredList, setFilteredList] = useState(listOfRestaurants);
   //   console.log("Body rendered");
   // useEffect(() => {
@@ -137,16 +137,14 @@ const Body = () => {
     useFetchRestaurant(SWIGGY_URL);
 
   const topRated = () => {
-    const highRated = listOfRestaurants.filter(
-      (item) => item.info.avgRating > 4
-    );
+    const highRated = filteredList.filter((item) => item.info.avgRating > 4);
     console.log(highRated);
     setFilteredList(highRated);
   };
 
   const fastDelivery = () => {
     const instantDelivery = filteredList.filter(
-      (item) => item.info.sla.deliveryTime < 30
+      (item) => item.info.sla.deliveryTime < 25
     );
     console.log(instantDelivery);
     setFilteredList(instantDelivery);
@@ -154,15 +152,29 @@ const Body = () => {
 
   const searchBtnClick = () => {
     console.log("searchBtnClick", searchText);
-    const filteredRestaurant = listOfRestaurants.filter((item) => {
+    const filteredRestaurant = filteredList.filter((item) => {
       return item?.info?.name?.toLowerCase().includes(searchText.toLowerCase());
     });
     console.log(filteredRestaurant);
     setFilteredList(filteredRestaurant);
   };
 
+  const searchBtnClickGlobal = () => {
+    console.log("searchBtnClickGlobal", searchTextGlobal);
+    const filteredGlobalRestaurant = listOfRestaurants.filter((item) => {
+      return item?.info?.name
+        ?.toLowerCase()
+        .includes(searchTextGlobal.toLowerCase());
+    });
+    console.log(filteredGlobalRestaurant);
+    setFilteredList(filteredGlobalRestaurant);
+  };
+
   const updateSearchText = (e) => {
     setSearchText(e.target.value);
+  };
+  const updateSearchTextGlobal = (e) => {
+    setSearchTextGlobal(e.target.value);
   };
 
   return listOfRestaurants?.length === 0 ? (
@@ -172,12 +184,23 @@ const Body = () => {
       <div className="filter">
         <div className="search">
           <input
+            placeholder="Filter Search"
             className="search-box"
             type="text"
             value={searchText}
             onChange={updateSearchText}
           />
           <button onClick={searchBtnClick}>Search</button>
+        </div>
+        <div className="search">
+          <input
+            placeholder="Global Search"
+            className="search-box"
+            type="text"
+            value={searchTextGlobal}
+            onChange={updateSearchTextGlobal}
+          />
+          <button onClick={searchBtnClickGlobal}>Search</button>
         </div>
         <button className="btn" onClick={topRated}>
           Top Rated Restaurant

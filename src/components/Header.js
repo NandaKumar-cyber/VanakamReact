@@ -1,9 +1,12 @@
-import { LOGO_URL } from "../utils/Constants";
+import { LOGO_URL, SWIGGY_URL } from "../utils/Constants";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { SWIGGY_URL } from "../utils/Constants";
+import useFetchRestaurant from "../utils/useFetchRestaurants";
 
 const Header = () => {
   const [btn, setBtn] = useState("login");
+  const [searchTextGlobal, setSearchTextGlobal] = useState("");
   console.log("Header render");
 
   //If no dependency array in useEfeect ,useEffect will called every render.
@@ -12,8 +15,25 @@ const Header = () => {
     console.log("useEfeect called");
   }, []);
 
+  const { listOfRestaurants, setFilteredList } = useFetchRestaurant(SWIGGY_URL);
+
   const changetoLogout = () => {
     btn === "login" ? setBtn("logout") : setBtn("login");
+  };
+
+  const searchBtnClickGlobal = () => {
+    console.log("searchBtnClickGlobal", searchTextGlobal);
+    const filteredGlobalRestaurant = listOfRestaurants.filter((item) => {
+      return item?.info?.name
+        ?.toLowerCase()
+        .includes(searchTextGlobal.toLowerCase());
+    });
+    console.log(filteredGlobalRestaurant);
+    setFilteredList(filteredGlobalRestaurant);
+  };
+
+  const updateSearchTextGlobal = (e) => {
+    setSearchTextGlobal(e.target.value);
   };
 
   return (
@@ -21,8 +41,20 @@ const Header = () => {
       <div className="logo-container">
         <img className="logo" src={LOGO_URL} />
       </div>
+      
       <div className="nav-items">
-        <ul>
+          <ul>
+        <div className="search">
+          <input
+            placeholder="Global Search"
+            className="search-box"
+            type="text"
+            value={searchTextGlobal}
+            onChange={updateSearchTextGlobal}
+          />
+          <button onClick={searchBtnClickGlobal}>Search</button>
+        </div>
+      
           <li>
             <Link to="/">Home</Link>
           </li>
