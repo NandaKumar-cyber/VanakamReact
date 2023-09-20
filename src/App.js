@@ -9,7 +9,9 @@ import RestaurantMenu from "./components/RestaurantMenu";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Shimmer from "./components/Shimmer";
 
-const About = lazy(() => import("./components/About"));
+// const About = lazy(() => import("./components/About"));
+const About = lazy(() => import('./components/About'));
+
 
 const AppLayout = () => {
   return (
