@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { SWIGGY_URL } from "./Constants";
 
 const useFetchRestaurant = (SWIGGY_URL) => {
   const [listOfRestaurants, setlistOfRestaurants] = useState([]);
@@ -14,10 +13,10 @@ const useFetchRestaurant = (SWIGGY_URL) => {
     const json = await data.json();
     console.log(json);
     setlistOfRestaurants(
-      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
     setFilteredList(
-      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
     // setIsLoading(false);
     // console.log(setlistOfRestaurants)

@@ -6,6 +6,9 @@ import { SWIGGY_URL } from "../utils/Constants";
 import { Link } from "react-router-dom";
 import useFetchRestaurant from "../utils/useFetchRestaurants";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import Contact from "./Contact";
+import Items from "./Items";
+import Cuisine from "./Cuisine";
 
 // let resList = [
 //     {
@@ -187,35 +190,75 @@ const Body = () => {
     <Shimmer />
   ) : (
     <div className="body">
-      <div className="filter">
-        <div className="search">
-          <input
-            placeholder="Filter Search"
-            className="search-box"
-            type="text"
-            value={searchText}
-            onChange={updateSearchText}
-          />
-          <button onClick={searchBtnClick}>Search</button>
+      <div className="w-full h-auto bg-gradient-to-t from-[#c9bcf4] to-[#fff] rounded-b-xl outline-none overflow-hidden">
+        <div className=" text-base flex h-20 items-center justify-center text-black font-semibold ">
+          <div className="px-4">
+            <input
+              placeholder="Filter Search"
+              className="search-box rounded-lg text-base font-medium px-4 py-1 mr-4 border-solid border-2 border-black shadow-slate-600"
+              type="text"
+              value={searchText}
+              onChange={updateSearchText}
+            />
+            <button
+              onClick={searchBtnClick}
+              className="py-1 hover:text-black hover:border-red rounded-lg border-2 p-2 border-black shadow-slate-600 active:scale-90"
+            >
+              Search
+            </button>
+          </div>
+          <div className="px-4">
+            <input
+              placeholder="Global Search"
+              className="search-box rounded-lg text-base font-medium px-4 py-1 mr-4 border-solid border-2 border-black shadow-slate-600"
+              type="text"
+              value={searchTextGlobal}
+              onChange={updateSearchTextGlobal}
+            />
+            <button
+              onClick={searchBtnClickGlobal}
+              className="py-1 over:text-red hover:border-red rounded-lg border-2 p-2 border-black shadow-slate-600 active:scale-90"
+            >
+              Search
+            </button>
+          </div>
+          <button
+            className="px-4 over:text-red hover:border-red rounded-lg border-2 py-1 border-black shadow-slate-600 active:scale-90"
+            onClick={topRated}
+          >
+            Top Rated Restaurant
+          </button>
+          <button
+            className="px-4 ml-4 over:text-red hover:border-red rounded-lg border-2 py-1 border-black shadow-slate-600 active:scale-90"
+            onClick={fastDelivery}
+          >
+            Fastest Delivery
+          </button>
         </div>
-        <div className="search">
-          <input
-            placeholder="Global Search"
-            className="search-box"
-            type="text"
-            value={searchTextGlobal}
-            onChange={updateSearchTextGlobal}
-          />
-          <button onClick={searchBtnClickGlobal}>Search</button>
+
+        <div className="flex flex-row items-center justify-between w-full relative h-full">
+          <div className="ml-[11%] mt-15 h-145 max-w-344">
+            <h1
+              color="text_High_Emphasis"
+              className="text-4xl font-semibold leading-12 tracking-wide antialiased text-slate-75"
+            >
+              Order Food Online in Bengaluru
+            </h1>
+          </div>
+          <div className="mr-24">
+            <img
+              className="object-cover bg-transparent h-60 w-auto"
+              src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_1002,h_600/v1678428358/portal/m/seo_web/dweb_header.png"
+              alt="SWIGGY HEADER IMAGE"
+            />
+          </div>
         </div>
-        <button className="btn" onClick={topRated}>
-          Top Rated Restaurant
-        </button>
-        <button className="btn" onClick={fastDelivery}>
-          Fastest Delivery
-        </button>
       </div>
-      <div className="res-container">
+      <div className="flex mt-8">
+        <Cuisine />
+      </div>
+
+      <div className="flex flex-wrap mx-24 rounded-lg ">
         {/* {<RestaurantCard resData={resList[0]} />}
                 {<RestaurantCard resData={resList[1]} />}  */}
         {/* {filteredList.map((restaurant) => (

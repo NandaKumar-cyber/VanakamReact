@@ -1,7 +1,9 @@
-const Contact = () =>{
-    return(
-        <h1>Hello this is Contact Page</h1>
-    )
-}
+const Contact = () => {
+  return (
+    <div>
+      <h1>Hello this is Contact Page</h1>
+    </div>
+  );
+};
 
 export default Contact;

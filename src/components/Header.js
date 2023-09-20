@@ -6,7 +6,7 @@ import useFetchRestaurant from "../utils/useFetchRestaurants";
 import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Header = () => {
-  const [btn, setBtn] = useState("login");
+  const [btn, setBtn] = useState("Login");
   const [searchTextGlobal, setSearchTextGlobal] = useState("");
   console.log("Header render");
 
@@ -21,7 +21,7 @@ const Header = () => {
   const { listOfRestaurants, setFilteredList } = useFetchRestaurant(SWIGGY_URL);
 
   const changetoLogout = () => {
-    btn === "login" ? setBtn("logout") : setBtn("login");
+    btn === "Login" ? setBtn("Logout") : setBtn("Login");
   };
 
   const searchBtnClickGlobal = () => {
@@ -40,37 +40,44 @@ const Header = () => {
   };
 
   return (
-    <div className="header">
+    <div className="container mx-auto flex bg-gradient-to-b from-[#edecef] to-[#f9e0e0] justify-between h-28 items-center">
       <div className="logo-container">
-        <img className="logo" src={LOGO_URL} />
+        <img className="w-28 h-39 m-32 " src={LOGO_URL} />
       </div>
 
-      <div className="nav-items">
-        <ul>
-          <div className="search">
+      <div className="flex  flex-wrap ">
+        <ul className="flex items-center text-lg text-black font-semibold ">
+          <div className="mx-4  hover:text-black ">
             <input
               placeholder="Global Search"
-              className="search-box"
+              className="search-box rounded-lg text-base font-medium px-4 py-1 mr-4 border-solid border-2 border-black shadow-slate-600"
               type="text"
               value={searchTextGlobal}
               onChange={updateSearchTextGlobal}
             />
-            <button onClick={searchBtnClickGlobal}>Search</button>
+            <button onClick={searchBtnClickGlobal} className="py-1 hover:bgbg-zinc-300 hover:text-black hover:border-red rounded-lg border-2 p-2 border-black shadow-slate-600 active:scale-90 text-base">Search</button>
           </div>
 
-          <li>
+          <li className="mx-4 text-base text-black font-medium hover:text-red">
             <Link to="/">Home</Link>
           </li>
-          <li>
+          <li className="mx-4 text-base font-medium hover:text-red">
             <Link to="./about"> About Us</Link>
           </li>
-          <li>
+          <li className="mx-4 text-base font-medium hover:text-red">
             <Link to="/contact">Contact Us</Link>
           </li>
-          <li>{onlineStatus ? "Online" : "Offline"}</li>
+          <li className="mx-4 text-base font-medium hover:text-red">
+            {onlineStatus ? "Online" : "Offline"}
+          </li>
 
-          <li>Cart</li>
-          <button onClick={changetoLogout}>{btn}</button>
+          <li className="mx-4 text-base font-medium hover:text-red">Cart</li>
+          <button
+            className="py-1 ml-4 mr-32 text-base font-medium hover:text-black hover:border-red rounded-lg border-2 p-2 border-black shadow-slate-600"
+            onClick={changetoLogout}
+          >
+            {btn}
+          </button>
         </ul>
       </div>
     </div>
