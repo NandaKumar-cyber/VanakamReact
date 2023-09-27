@@ -2,8 +2,8 @@ const Items = (props) => {
   const { cusineData } = props;
   const { id, imageId } = cusineData;
   //  const { text } = cusineData?.info?.action;
-  console.log(id, imageId);
-  console.log("cusine comp rendered");
+  // console.log(id, imageId);
+  // console.log("cusine comp rendered");
   return (
     <div className="flex h-[180] w-[144]">
       {/* <h3> id:{id}</h3> */}

@@ -1,4 +1,4 @@
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, { withOfferLabel } from "./RestaurantCard";
 // import resList from "../utils/MockData";
 import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
@@ -140,6 +140,8 @@ const Body = () => {
   const { listOfRestaurants, filteredList, setFilteredList } =
     useFetchRestaurant(SWIGGY_URL);
 
+  const RestaurantCardOffer = withOfferLabel(RestaurantCard);
+
   const topRated = () => {
     const highRated = filteredList.filter((item) => item.info.avgRating > 4);
     console.log(highRated);
@@ -190,6 +192,9 @@ const Body = () => {
     <Shimmer />
   ) : (
     <div className="body">
+      <div className="flex mt-8">
+        <Cuisine />
+      </div>
       <div className="w-full h-auto bg-gradient-to-t from-[#c9bcf4] to-[#fff] rounded-b-xl outline-none overflow-hidden">
         <div className=" text-base flex h-20 items-center justify-center text-black font-semibold ">
           <div className="px-4">
@@ -254,9 +259,6 @@ const Body = () => {
           </div>
         </div>
       </div>
-      <div className="flex mt-8">
-        <Cuisine />
-      </div>
 
       <div className="flex flex-wrap mx-24 rounded-lg ">
         {/* {<RestaurantCard resData={resList[0]} />}
@@ -271,7 +273,12 @@ const Body = () => {
               to={"/restaurants/" + restaurant?.info.id}
               key={restaurant?.info.id}
             >
-              <RestaurantCard resData={restaurant} />
+              {restaurant?.info.aggregatedDiscountInfoV3?.header ===
+              undefined ? (
+                <RestaurantCard resData={restaurant} />
+              ) : (
+                <RestaurantCardOffer resData={restaurant} />
+              )}
             </Link>
           ))}
       </div>
