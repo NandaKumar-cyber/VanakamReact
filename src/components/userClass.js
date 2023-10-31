@@ -50,8 +50,8 @@ class UserClass extends React.Component {
     // console.log(name, "child render");
     const { name, bio, location, avatar_url, login } = this.state.userInfo;
     return (
-      <div className="user-card">
-        <h1>This is Class Based Components</h1>
+      <div className="mt-20 text-center text-lg font-bold flex flex-col items-center">
+        {/* <h1>This is Class Based Components</h1> */}
         {/* <h1>{count}</h1>
         <button onClick={this.onIncrement}>Increment</button>
         <h1>{count2}</h1>
@@ -60,16 +60,11 @@ class UserClass extends React.Component {
         }}>Double Increment</button> */}
         <h2>{name}</h2>
         <img
-          style={{
-            maxWidth: "300px",
-            minWidth: "200px",
-            width: "auto",
-            height: "auto",
-          }}
+        className="w-40 h-40 rounded-full my-4"
           src={avatar_url}
           alt="img"
         />
-        <h2>{login}</h2>
+        {/* <h2>{login}</h2> */}
         <h2>{bio}</h2>
         <h2>{location}</h2>
       </div>

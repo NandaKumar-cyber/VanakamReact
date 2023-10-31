@@ -47,23 +47,25 @@ const RestaurantCard = (props) => {
 
 // ==> input -> RestaurantCard -> RestaurantCardOffer
 
-export const withOfferLabel = (RestaurantCard) => {
-  return (props) => {
-    const { resData } = props;
-    const { aggregatedDiscountInfoV3 } = resData?.info;
-    return (
-      <div>
-        <div className="relative z-10 w-full">
-          {/* <p className="offer absolute bottom-2 z-20 text-white bg-black bg-opacity-75 rounded-lg p-2 mx-6">
-            {aggregatedDiscountInfoV3?.header === undefined
-              ? ""
-              : `${aggregatedDiscountInfoV3?.header} ${aggregatedDiscountInfoV3?.subHeader}`}
-          </p> */}
-        </div>
-        <RestaurantCard {...props} />
-      </div>
-    );
-  };
-};
+// export const withOfferLabel = (RestaurantCard) => {
+//   return (props) => {
+//     const { resData } = props;
+//     const { aggregatedDiscountInfoV3 } = resData?.info;
+//     return (
+//       <div>
+//         <div className="relative z-10 w-full">
+//           {/* <p className="offer absolute bottom-2 z-20 text-white bg-black bg-opacity-75 rounded-lg p-2 mx-6"> */}
+//           {/* <label className="absolute bg-black text-white m-2 p-2 rounded-lg">
+//             {aggregatedDiscountInfoV3?.header === undefined
+//               ? ""
+//               : `${aggregatedDiscountInfoV3?.header} ${aggregatedDiscountInfoV3?.subHeader}`}
+//           </label> */}
+//            {/* </p> */}
+//         </div>
+//         <RestaurantCard {...props} />
+//       </div>
+//     );
+//   };
+// };
 
 export default RestaurantCard;

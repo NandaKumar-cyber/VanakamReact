@@ -2,12 +2,26 @@ import Shimmer from "./Shimmer";
 import { useParams } from "react-router-dom";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
 import RestaurantCategory from "./RestaurantCategory";
+import { useState } from "react";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
   console.log(resId, "resId");
 
   const resInfo = useRestaurantMenu(resId);
+  const [searchFood, setSearchFood] = useState("");
+  const [showIndex, setShowIndex] = useState(0);
+
+  const setShowIndexProps = (index) => {
+    if(index === showIndex)
+    {
+      setShowIndex(null);
+    }
+    else{
+      setShowIndex(index);
+    }
+  }
+
 
   if (resInfo === null) {
     return <Shimmer />;
@@ -26,16 +40,33 @@ const RestaurantMenu = () => {
   // const { itemCards } =
   //   resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[4]?.card?.card;
   // console.log(itemCards,"itemC");
+  // console.log(resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards,"check")
 
   const categories =
     resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter((c) => {
       return (
-        c.card?.card?.["@type"] ===
+        c.card?.["card"]?.["@type"] ===
         "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
       );
     });
 
-  console.log(categories,"categories");
+  console.log(categories, "categories");
+
+  const updateSearchFood = (e) => {
+    setSearchFood(e.target.value);
+    console.log("event", e.target.value);
+  };
+
+  const searchBtnClick = () => {
+    console.log("searchBtnClick", searchFood);
+    const filterFood = categories.filter((item) => {
+      return item?.card?.info?.name
+        .toLowerCase()
+        .includes(searchFood.toLowerCase());
+    });
+    setSearchFood(filterFood);
+    console.log(filterFood, "filteredfood");
+  };
 
   // const info = resInfo?.data?.cards[0]?.card?.card?.info;
 
@@ -97,10 +128,23 @@ const RestaurantMenu = () => {
             ></path>
           </svg>
           <span>{deliveryTime} mins</span>
-          <p className="pl-10"> {costForTwoMessage}</p>
+          <p className="px-10"> {costForTwoMessage}</p>
+          <input
+            placeholder={`Search in ${name}`}
+            className=" search-box rounded-lg text-base font-medium px-4 py-1 mr-4 border-solid border-2 border-black shadow-slate-600"
+            type="text"
+            value={searchFood}
+            onChange={updateSearchFood}
+          />
+          <button
+            onClick={searchBtnClick}
+            className="py-1 hover:bgbg-zinc-300 hover:text-black hover:border-red rounded-lg border-2 p-2 border-black shadow-slate-600 active:scale-90 text-base"
+          >
+            Search
+          </button>
         </div>
       </div>
-{/* 
+      {/* 
       <ul>
         {itemCards &&
           itemCards.map((items) => {
@@ -112,9 +156,19 @@ const RestaurantMenu = () => {
           })}
       </ul> */}
       <div className=" pt-4">
-      {categories.map((category) => {
-        return <RestaurantCategory  key ={category?.card?.card?.title}data={category?.card?.card} />;
-      })}
+        {categories.map((category,index) => {
+          return (
+            <RestaurantCategory
+              key={category?.card?.card?.title}
+              data={category?.card?.card}
+              // showItems={false}
+              // showItems={index === 0 ? true : false}
+              showItems={index === showIndex}
+              // setShowIndex={() => setShowIndex(index)}
+              setShowIndex={() => setShowIndexProps(index)} 
+            />
+          );
+        })}
       </div>
     </div>
   );

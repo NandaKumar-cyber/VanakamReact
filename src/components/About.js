@@ -16,7 +16,7 @@ class About extends Component {
     // console.log("Parent Render")
     return (
       <div>
-        <h1>About us Page</h1>
+        {/* <h1>About us Page</h1> */}
         <UserClass
           name={"Nanda Kumar - Class"}
           location={"Bangalore - Class"}

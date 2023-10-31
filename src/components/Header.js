@@ -55,7 +55,12 @@ const Header = () => {
               value={searchTextGlobal}
               onChange={updateSearchTextGlobal}
             />
-            <button onClick={searchBtnClickGlobal} className="py-1 hover:bgbg-zinc-300 hover:text-black hover:border-red rounded-lg border-2 p-2 border-black shadow-slate-600 active:scale-90 text-base">Search</button>
+            <button
+              onClick={searchBtnClickGlobal}
+              className="py-1 hover:bgbg-zinc-300 hover:text-black hover:border-red rounded-lg border-2 p-2 border-black shadow-slate-600 active:scale-90 text-base"
+            >
+              Search
+            </button>
           </div>
 
           <li className="mx-4 text-base text-black font-medium hover:text-red">
@@ -71,7 +76,9 @@ const Header = () => {
             {onlineStatus ? "Online" : "Offline"}
           </li>
 
-          <li className="mx-4 text-base font-medium hover:text-red">Cart</li>
+          <li className="mx-4 text-base font-medium hover:text-red">
+            <Link to="/cart">Cart</Link>
+          </li>
           <button
             className="py-1 ml-4 mr-32 text-base font-medium hover:text-black hover:border-red rounded-lg border-2 p-2 border-black shadow-slate-600"
             onClick={changetoLogout}

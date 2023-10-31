@@ -140,7 +140,9 @@ const Body = () => {
   const { listOfRestaurants, filteredList, setFilteredList } =
     useFetchRestaurant(SWIGGY_URL);
 
-  const RestaurantCardOffer = withOfferLabel(RestaurantCard);
+  console.log("body rendered", listOfRestaurants);
+
+  // const RestaurantCardOffer = withOfferLabel(RestaurantCard);
 
   const topRated = () => {
     const highRated = filteredList.filter((item) => item.info.avgRating > 4);
@@ -273,12 +275,16 @@ const Body = () => {
               to={"/restaurants/" + restaurant?.info.id}
               key={restaurant?.info.id}
             >
-              {restaurant?.info.aggregatedDiscountInfoV3?.header ===
+              <RestaurantCard resData={restaurant} />
+              {/* Higher order Component 
+              ==> input -> RestaurantCard ->RestaurantCardOffer */}
+
+              {/* {restaurant?.info.aggregatedDiscountInfoV3?.header ===
               undefined ? (
                 <RestaurantCard resData={restaurant} />
               ) : (
                 <RestaurantCardOffer resData={restaurant} />
-              )}
+              )} */}
             </Link>
           ))}
       </div>
