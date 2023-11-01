@@ -1,9 +1,10 @@
 import { LOGO_URL, SWIGGY_URL } from "../utils/Constants";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { SWIGGY_URL } from "../utils/Constants";
 import useFetchRestaurant from "../utils/useFetchRestaurants";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 
 const Header = () => {
   const [btn, setBtn] = useState("Login");
@@ -18,26 +19,31 @@ const Header = () => {
 
   const onlineStatus = useOnlineStatus();
 
+  const { loggedInUser, defaultLocation, setUserLocation } =
+    useContext(UserContext);
+  console.log(loggedInUser, defaultLocation, "data from createContext");
+
   const { listOfRestaurants, setFilteredList } = useFetchRestaurant(SWIGGY_URL);
 
   const changetoLogout = () => {
-    btn === "Login" ? setBtn("Logout") : setBtn("Login");
+    btn === loggedInUser ? setBtn("Login") : setBtn(loggedInUser);
+    // btn === "Login" ? setBtn("Logout") : setBtn("Login");
   };
 
-  const searchBtnClickGlobal = () => {
-    console.log("searchBtnClickGlobal", searchTextGlobal);
-    const filteredGlobalRestaurant = listOfRestaurants.filter((item) => {
-      return item?.info?.name
-        ?.toLowerCase()
-        .includes(searchTextGlobal.toLowerCase());
-    });
-    console.log(filteredGlobalRestaurant);
-    setFilteredList(filteredGlobalRestaurant);
-  };
+  // const searchBtnClickGlobal = () => {
+  //   console.log("searchBtnClickGlobal", searchTextGlobal);
+  //   const filteredGlobalRestaurant = listOfRestaurants.filter((item) => {
+  //     return item?.info?.name
+  //       ?.toLowerCase()
+  //       .includes(searchTextGlobal.toLowerCase());
+  //   });
+  //   console.log(filteredGlobalRestaurant);
+  //   setFilteredList(filteredGlobalRestaurant);
+  // };
 
-  const updateSearchTextGlobal = (e) => {
-    setSearchTextGlobal(e.target.value);
-  };
+  // const updateSearchTextGlobal = (e) => {
+  //   setSearchTextGlobal(e.target.value);
+  // };
 
   return (
     <div className="container mx-auto flex bg-gradient-to-b from-[#edecef] to-[#f9e0e0] justify-between h-28 items-center">
@@ -47,20 +53,22 @@ const Header = () => {
 
       <div className="flex  flex-wrap ">
         <ul className="flex items-center text-lg text-black font-semibold ">
-          <div className="mx-4  hover:text-black ">
+          <div className="mx-4 flex  hover:text-black ">
             <input
-              placeholder="Global Search"
+              placeholder="Set Location"
               className="search-box rounded-lg text-base font-medium px-4 py-1 mr-4 border-solid border-2 border-black shadow-slate-600"
               type="text"
-              value={searchTextGlobal}
-              onChange={updateSearchTextGlobal}
+              // value={searchTextGlobal}
+              // onChange={updateSearchTextGlobal}
+              onChange={(e) => setUserLocation(e.target.value)}
+              value={defaultLocation}
             />
-            <button
-              onClick={searchBtnClickGlobal}
-              className="py-1 hover:bgbg-zinc-300 hover:text-black hover:border-red rounded-lg border-2 p-2 border-black shadow-slate-600 active:scale-90 text-base"
+            <li
+              // onClick={searchBtnClickGlobal}
+              className=" px-4 py-1 mr-4 text-base font-medium hover:text-red"
             >
-              Search
-            </button>
+              {defaultLocation}
+            </li>
           </div>
 
           <li className="mx-4 text-base text-black font-medium hover:text-red">
@@ -83,7 +91,12 @@ const Header = () => {
             className="py-1 ml-4 mr-32 text-base font-medium hover:text-black hover:border-red rounded-lg border-2 p-2 border-black shadow-slate-600"
             onClick={changetoLogout}
           >
-            {btn}
+            {btn === loggedInUser ? (
+              <p>Logged in as: {loggedInUser}</p>
+            ) : (
+              <p>login</p>
+            )}
+            {/* {btn} */}
           </button>
         </ul>
       </div>
