@@ -14,3 +14,13 @@
  *  - Contact
  *  - Address
  */
+
+
+ Redux
+ -> npm i @reduxjs/toolkit
+ -> npm i react-redux
+ -> Build our Store
+ -> Connect our Store to App
+ -> Slice(cartSlice)
+ -> dispatch(action)
+ -> selector(subscription)

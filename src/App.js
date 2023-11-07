@@ -10,6 +10,10 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Shimmer from "./components/Shimmer";
 import Cart from "./components/Cart";
 import UserContext from "./utils/UserContext";
+import { Provider } from "react-redux";
+import appStore from "./utils/Redux/Store";
+import Order from "./components/Order";
+
 
 const About = lazy(() => import("./components/About"));
 
@@ -25,12 +29,14 @@ const AppLayout = () => {
     setUserLocation(data.myLocation)
   }, []);
   return (
+    <Provider store={appStore}>
     <UserContext.Provider value={{loggedInUser:userName,defaultLocation:userLocation,setUserLocation}}>
     <div className="app">
       {<Header />}
       {<Outlet />}
     </div>
     </UserContext.Provider>
+    </Provider>
   );
 };
 
@@ -50,6 +56,7 @@ const appRouter = createBrowserRouter([
       },
       { path: "/contact", element: <Contact /> },
       { path: "/cart", element: <Cart /> },
+      {path : "/order" ,element:<Order />},
       { path: "/restaurants/:resId", element: <RestaurantMenu /> },
     ],
     errorElement: <Error />,
