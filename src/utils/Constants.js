@@ -5,7 +5,7 @@ export const LOGO_URL =
 export const SWIGGY_URL =
   "https://corsproxy.io/?https://www.swiggy.com/dapi/restaurants/list/v5?lat=13.0171220786435&lng=77.65222784131765&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING";
 export const MENU_API =
-  "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=13.01715507134861&lng=77.65224158763885&restaurantId=";
+  "https://corsproxy.io/?https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=13.01715507134861&lng=77.65224158763885&restaurantId=";
 export const GIT_USERS = "https://api.github.com/users/NandaKumar-cyber";
 export const RATING_GREEN = (
   <svg
